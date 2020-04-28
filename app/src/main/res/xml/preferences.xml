@@ -21,8 +21,45 @@
             android:title="Password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:useSimpleSummaryProvider="true"
+            />
+
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:summary="Basic information"
+        android:title="Basic information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <EditTextPreference
+            android:key="age_preference"
+            android:summary="Enter Age"
+            android:title="Age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            android:key="mobilenumber_preference"
+            android:summary="Enter Mobile Number"
+            android:title="Mobile number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:useSimpleSummaryProvider="true"
+            />
+        <DropDownPreference
+            android:key="gender_preference"
+
+            android:title="Gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="1"
+            android:entries="@array/listArray"
+            android:entryValues="@array/listValues"
             />
     </PreferenceCategory>
+
+
 
 
 

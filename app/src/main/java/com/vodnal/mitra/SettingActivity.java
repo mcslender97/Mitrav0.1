@@ -1,21 +1,14 @@
 package com.vodnal.mitra;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.EditTextPreference;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
+import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
-
-import com.vodnal.mitra.R;
-import com.vodnal.mitra.MainActivity;
 
 public class SettingActivity extends AppCompatActivity {
     //private SettingViewModel settingViewModel;
@@ -40,6 +33,11 @@ public class SettingActivity extends AppCompatActivity {
         });*/
 
     }
+    private static void  setSummaryValue(Preference preference){
+        preference.setOnPreferenceChangeListener(listener);
+        listener.onPreferenceChange(preference,PreferenceManager.getDefaultSharedPreferences(preference.getContext()).getString(preference.getKey(),""));
+    }
+
     private static OnPreferenceChangeListener listener = new OnPreferenceChangeListener() {
 
 
@@ -53,7 +51,33 @@ public class SettingActivity extends AppCompatActivity {
                // userManager.getUser().setEmail(stringValue);
 
             }
+            else if (preference instanceof ListPreference){
+                ListPreference listPreference = (ListPreference) preference;
+                int index = listPreference.findIndexOfValue(stringValue);
+                preference.setSummary(index > 0 ? listPreference.getEntries()[index]:null);
+            }
             return false;
         }
     };
+
+    public static class SettingFragment extends PreferenceFragmentCompat {
+
+
+        @Override
+        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+            //super.onCreate(savedInstanceState);
+            setPreferencesFromResource(R.xml.preferences,rootKey);
+
+        }
+
+    //    @Override
+    //    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    //        mEmail = getPreferenceManager().findPreference("email_preference");
+    //        mPassword = getPreferenceManager().findPreference("password_preference");
+    //
+    //        return inflater.inflate(R.layout.setting_activity, container, false);
+    //    }
+
+
+    }
 }

@@ -1,8 +1,10 @@
 package com.vodnal.mitra;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.util.Range;
@@ -93,6 +95,8 @@ public class RegisterActivity extends AppCompatActivity {
             SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
             //starting the profile activity
             Toast.makeText(getApplicationContext(), "Successfully registered the user!", Toast.LENGTH_SHORT).show();
+            //Save preferences into setting
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             //go to main screen
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
             finish();
