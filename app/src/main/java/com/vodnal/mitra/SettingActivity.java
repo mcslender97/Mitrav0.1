@@ -12,7 +12,7 @@ import androidx.preference.PreferenceManager;
 
 public class SettingActivity extends AppCompatActivity {
     //private SettingViewModel settingViewModel;
-   // private static SharedPrefManager userManager = SharedPrefManager.getInstance(get);
+    private static SharedPrefManager userManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +37,13 @@ public class SettingActivity extends AppCompatActivity {
         preference.setOnPreferenceChangeListener(listener);
         listener.onPreferenceChange(preference,PreferenceManager.getDefaultSharedPreferences(preference.getContext()).getString(preference.getKey(),""));
     }
+    private static RegisterUser getCurrentUser(){
+        return userManager.getUser();
+    }
+    private void changeUserInfo(String stringValue){
+
+    }
+
 
     private static OnPreferenceChangeListener listener = new OnPreferenceChangeListener() {
 
@@ -44,18 +51,39 @@ public class SettingActivity extends AppCompatActivity {
 
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
+
             String stringValue = newValue.toString();
 
-                if (preference instanceof EditTextPreference){
+                if (preference instanceof EditTextPreference && (preference.getKey())=="email_preference"){
                     //EditTextPreference editTextPreference = (EditTextPreference) preference;
                     preference.setSummary(stringValue);
-                   // userManager.getUser().setEmail(stringValue);
+                    getCurrentUser().setEmail(stringValue);
 
                 }
+                else if (preference instanceof EditTextPreference && (preference.getKey())=="password"){
+                    //EditTextPreference editTextPreference = (EditTextPreference) preference;
+                    preference.setSummary(stringValue);
+                    getCurrentUser().setPassword(stringValue);
+
+                }
+                else if (preference instanceof EditTextPreference && (preference.getKey())=="age_preference"){
+                    //EditTextPreference editTextPreference = (EditTextPreference) preference;
+                    preference.setSummary(stringValue);
+                    getCurrentUser().setAge(stringValue);
+
+                }
+                else if (preference instanceof EditTextPreference && (preference.getKey())=="mobilenumber_preference"){
+                    //EditTextPreference editTextPreference = (EditTextPreference) preference;
+                    preference.setSummary(stringValue);
+                    getCurrentUser().setMobileNum(stringValue);
+
+                }
+
                 else if (preference instanceof ListPreference){
                     ListPreference listPreference = (ListPreference) preference;
                     int index = listPreference.findIndexOfValue(stringValue);
                     preference.setSummary(index > 0 ? listPreference.getEntries()[index]:null);
+                    getCurrentUser().setGender(stringValue);
                 }
                 return false;
         }

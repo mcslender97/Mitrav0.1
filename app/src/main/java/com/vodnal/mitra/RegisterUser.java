@@ -9,6 +9,10 @@ public class RegisterUser {
     private String address;
     private String age;
 
+
+
+    private String gender;
+
     public RegisterUser(int id, String name, String email, String password, String mobileNum, String address,String age) {
         this.id = id;
         this.email = email;
@@ -17,6 +21,7 @@ public class RegisterUser {
         this.mobileNum = mobileNum;
         this.address = address;
         this.age = age;
+        this.gender = "Prefer not to say";
     }
 
     public int getId() {
@@ -71,5 +76,12 @@ public class RegisterUser {
 
     public void setAge(String age) {
         this.age = age;
+    }
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }
