@@ -59,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
         awesomeValidation.addValidation(this, R.id.et_email, Patterns.EMAIL_ADDRESS, R.string.emailerror);
         awesomeValidation.addValidation(this, R.id.et_password, ".{8,}", R.string.passworderror);
         awesomeValidation.addValidation(this, R.id.et_repassword, ".{8,}", R.string.passworderror);
-        //awesomeValidation.addValidation(this, R.id.editTextMobile, "^\\+(?:[0-9] ?){6,14}[0-9]$", R.string.mobileerror);
+        awesomeValidation.addValidation(this, R.id.editTextMobile, "^\\+(?:[0-9] ?){6,14}[0-9]$", R.string.mobileerror);
         //awesomeValidation.addValidation(this, R.id.et_address, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.addresserror);
         //awesomeValidation.addValidation(this, R.id.editTextAge, Range.extend(12, 60), R.string.invalid_age);
 
@@ -69,6 +69,8 @@ public class RegisterActivity extends AppCompatActivity {
                 if(editTextPassword.getText().toString().equalsIgnoreCase(editTextRePassword.getText().toString())) {
                     if (awesomeValidation.validate()) {
                         callRegister();
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        StringBuilder info = new StringBuilder();
                       //  startActivity(new Intent(getApplicationContext(),MainActivity.class));
                     }
                 }else{
@@ -96,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
             //starting the profile activity
             Toast.makeText(getApplicationContext(), "Successfully registered the user!", Toast.LENGTH_SHORT).show();
             //Save preferences into setting
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
             //go to main screen
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
             finish();
@@ -163,4 +165,16 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+
+    // Retrive the entered records from the sharedpreferences method
+    private void callRetrive() {
+        RegisterUser registedUser = SharedPrefManager.getInstance(getApplicationContext()).getUser();
+        editTextName.setText(registedUser.getName());
+        editTextEmail.setText(registedUser.getEmail());
+        editTextPassword.setText(registedUser.getPassword());
+        editTextRePassword.setText(registedUser.getPassword());
+        editTextMobile.setText(registedUser.getMobileNum());
+        editTextAddress.setText(registedUser.getAddress());
+        editTextAge.setText(registedUser.getAge());
+    }
 }

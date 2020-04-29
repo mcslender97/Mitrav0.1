@@ -45,18 +45,19 @@ public class SettingActivity extends AppCompatActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             String stringValue = newValue.toString();
-            if (preference instanceof EditTextPreference){
-                //EditTextPreference editTextPreference = (EditTextPreference) preference;
-                preference.setSummary(stringValue);
-               // userManager.getUser().setEmail(stringValue);
 
-            }
-            else if (preference instanceof ListPreference){
-                ListPreference listPreference = (ListPreference) preference;
-                int index = listPreference.findIndexOfValue(stringValue);
-                preference.setSummary(index > 0 ? listPreference.getEntries()[index]:null);
-            }
-            return false;
+                if (preference instanceof EditTextPreference){
+                    //EditTextPreference editTextPreference = (EditTextPreference) preference;
+                    preference.setSummary(stringValue);
+                   // userManager.getUser().setEmail(stringValue);
+
+                }
+                else if (preference instanceof ListPreference){
+                    ListPreference listPreference = (ListPreference) preference;
+                    int index = listPreference.findIndexOfValue(stringValue);
+                    preference.setSummary(index > 0 ? listPreference.getEntries()[index]:null);
+                }
+                return false;
         }
     };
 
